@@ -1,0 +1,45 @@
+import java.util.*;
+class FascinatingNumber
+ {
+     void main() 
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter lower limit ");
+        int m = sc.nextInt();
+        System.out.print("Enter upper limit");
+        int n = sc.nextInt();
+        if (m <= 99 || n >= 10000 || m >= n)
+        {
+            System.out.println("Invalid input");
+            return;
+        }
+        int c=0;
+        System.out.println("Fascinating numbers between " + m + " and " + n + " are:");
+        boolean f = false;
+        for (int i = m; i <= n; i++)
+        {
+            if (isFascinating(i))
+            {
+                System.out.println(i);
+                c++;
+            }
+        }
+        System.out.println("Total number of fascinating numbers found: " + c);
+    }
+    boolean isFascinating(int num)
+    {
+        int num2 = num * 2;
+        int num3 = num * 3;
+        String st = "" + num + num2 + num3;
+        if (st.length() != 9)
+        return false;
+        for (char ch = '1'; ch <= '9'; ch++)
+        {
+            if (st.indexOf(ch) == -1 || st.indexOf(ch) != st.lastIndexOf(ch))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
