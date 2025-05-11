@@ -1,0 +1,81 @@
+import java.util.*;
+class VampireNumbers
+ {
+    int countDig(int num)
+    {
+        int c = 0;
+        while (num > 0)
+        {
+            c++;
+            num = num / 10;
+        }
+        return c;
+    }
+    boolean isVampire(int num, int f1, int f2)
+    {
+        if (f1 % 10 == 0 && f2 % 10 == 0) 
+        return false; 
+        if (f1 * f2 != num)
+        return false;
+        int[] d = new int[10];
+        int temp = num;
+        while (temp > 0)
+        {
+            d[temp % 10]++;
+            temp /= 10;
+        }
+        temp = f1;
+        while (temp > 0)
+        {
+            d[temp % 10]--;
+            temp /= 10;
+        }
+        temp = f2;
+        while (temp > 0)
+        {
+            d[temp % 10]--;
+            temp /= 10;
+        }
+        for (int i = 0; i < 10; i++)
+        {
+            if (d[i] != 0)
+            return false;
+        }
+        return true;
+    }
+     void main()
+     {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the lower limit ");
+        int m = sc.nextInt();
+        System.out.print("Enter the upper limit ");
+        int n = sc.nextInt();
+        if (m < 1000 || n > 9999 || m > n)
+        {
+            System.out.println("Invalid");
+            return;
+        }
+        int c = 0;
+        System.out.println("Vampire numbers between " + m + " and " + n + ":");
+        for (int num = m; num <= n; num++)
+        {
+            for (int f1 = 10; f1 <= 99; f1++) 
+            {
+                if (num % f1 == 0) {
+                    int f2 = num / f1;
+                    if (f2 >= 10 && f2 <= 99)
+                    {
+                        if (isVampire(num, f1, f2))
+                        {
+                            System.out.println(num + " = " + f1 + " x " + f2);
+                            c++;
+                            break; 
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println("Frequency" + c);
+    }
+}
